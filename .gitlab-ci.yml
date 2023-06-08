@@ -10,7 +10,7 @@ before_script:
   - docker --version
 
 variables:
-  DESTROY: "false"
+  DESTROY: "true"
 
 cache:
   paths:
@@ -21,24 +21,19 @@ before_script:
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   - yum -y install terraform
   - aws --version
-
+  - terraform --version
+#  - terraform init
 
 stages:
-  - init
   - plan
   - apply
   - destroy
-
-init-job:
-  stage: init
-  script:
-    - echo "terraform-init"
-    - aws s3 ls
 
 plan-job:
   stage: plan
   script:
     - echo "terraform-plan"
+    - aws s3 ls
 
 apply-job:
   stage: apply
