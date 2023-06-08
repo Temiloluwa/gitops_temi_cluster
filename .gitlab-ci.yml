@@ -4,7 +4,7 @@ default:
     entrypoint: [""]
 
 variables:
-  DESTROY: "true"
+  DESTROY: "false"
 
 cache:
   paths:
@@ -16,7 +16,7 @@ before_script:
   - yum -y install terraform
   - aws --version
   - terraform --version
-#  - terraform init
+  - terraform init
 
 stages:
   - plan
