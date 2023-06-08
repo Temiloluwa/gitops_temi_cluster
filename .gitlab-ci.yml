@@ -3,12 +3,6 @@ default:
     name: amazon/aws-cli
     entrypoint: [""]
 
-before_script:
-  - amazon-linux-extras install docker
-  - yum -y install make 
-  - aws --version
-  - docker --version
-
 variables:
   DESTROY: "true"
 
