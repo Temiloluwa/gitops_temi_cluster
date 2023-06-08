@@ -1,0 +1,20 @@
+stages:
+  - terraform-init
+  - terraform-plan
+  - terraform-apply
+
+init:
+  stage: terraform-init
+  script:
+   - echo "terraform-init"
+   - aws s3 ls
+
+plan:
+  stage: terraform-plan
+  script:
+   - echo "terraform-plan"
+
+apply:
+  stage: terraform-apply
+  script:
+   - echo "terraform-apply"
