@@ -1,3 +1,12 @@
+image:
+  name: hashicorp/terraform:light
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}' 
+    - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}' 
+    - 'AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}'
+
 variables:
   DESTROY: "false"
 
@@ -21,7 +30,7 @@ apply:
     - echo "terraform-apply"
   rules:
     - if: '$DESTROY == "false"'
-        when: on_success
+      when: on_success
 
 apply:
   stage: finalize
@@ -29,4 +38,4 @@ apply:
     - echo "terraform-destroy"
   rules:
     - if: '$DESTROY == "true"'
-        when: on_success
+      when: on_success
