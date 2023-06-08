@@ -3,9 +3,6 @@ default:
     name: amazon/aws-cli
     entrypoint: [""]
 
-services:
-  - docker:dind
-
 before_script:
   - amazon-linux-extras install docker
   - yum -y install make 
@@ -14,9 +11,6 @@ before_script:
 
 variables:
   DESTROY: "false"
-  DEV_ENV: nlp-dev-base
-  DOCKER_HOST: tcp://docker:2375
-
 
 cache:
   paths:
@@ -24,12 +18,9 @@ cache:
 
 before_script:
   - yum install -y yum-utils
-  #- yum -y install make
-  #- amazon-linux-extras install docker 
-  - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+  - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   - yum -y install terraform
   - aws --version
-  - docker --version
 
 
 stages:
