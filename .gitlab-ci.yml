@@ -4,7 +4,7 @@ default:
     entrypoint: [""]
 
 variables:
-  DESTROY: "false"
+  DESTROY: "true"
 
 cache:
   paths:
