@@ -18,3 +18,9 @@ apply:
   stage: terraform-apply
   script:
    - echo "terraform-apply"
+
+rules:
+  - if: '$CI_COMMIT_REF_NAME == "main"'
+    when: always
+  - if: '$CI_COMMIT_REF_NAME == "NHG-3-setup-iac-repo-with-aws-credentials-and-terraform-deployment-pipeline"'
+    when: manual
