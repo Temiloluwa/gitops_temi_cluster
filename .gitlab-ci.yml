@@ -15,6 +15,7 @@ before_script:
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   - yum -y install terraform
   - aws --version
+  - cd iac
   - terraform --version
   - terraform init
 
