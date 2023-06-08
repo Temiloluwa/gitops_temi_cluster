@@ -26,13 +26,12 @@ stages:
 plan-job:
   stage: plan
   script:
-    - echo "terraform-plan"
-    - aws s3 ls
+    - terraform plan
 
 apply-job:
   stage: apply
   script:
-    - echo "terraform-apply"
+    - terraform apply -auto-approve
 
 destroy-job:
   stage: destroy
