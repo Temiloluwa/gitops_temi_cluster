@@ -10,6 +10,19 @@ image:
 variables:
   DESTROY: "false"
 
+cache:
+  paths:
+    - .terraform
+
+before_script:
+  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  - sudo apt install unzip
+  - unzip awscliv2.zip
+  - sudo ./aws/install
+  - aws --version
+  - terraform --version
+
+
 stages:
   - prepare
   - finalize
