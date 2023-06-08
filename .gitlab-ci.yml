@@ -23,8 +23,9 @@ cache:
     - .terraform
 
 before_script:
-  - amazon-linux-extras install docker
-  - yum -y install make 
+  - yum install -y yum-utils
+  - yum -y install make
+  - amazon-linux-extras install docker 
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
   - yum -y install terraform
   - aws --version
