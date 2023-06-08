@@ -15,11 +15,11 @@ cache:
     - .terraform
 
 before_script:
-  - sudo apt install curl
+  - apt install curl
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  - sudo apt install unzip
+  - apt install unzip
   - unzip awscliv2.zip
-  - sudo ./aws/install
+  - ./aws/install
   - aws --version
   - terraform --version
 
