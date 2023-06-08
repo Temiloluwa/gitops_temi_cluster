@@ -1,20 +1,32 @@
+variables:
+  DESTROY: "false"
+
 stages:
-  - terraform-init
-  - terraform-plan
-  - terraform-apply
+  - prepare
+  - finalize
 
 init:
-  stage: terraform-init
+  stage: prepare
   script:
    - echo "terraform-init"
-   - aws s3 ls
 
 plan:
-  stage: terraform-plan
+  stage: prepare
   script:
    - echo "terraform-plan"
 
 apply:
-  stage: terraform-apply
+  stage: finalize
   script:
    - echo "terraform-apply"
+  rules:
+    - if: '$DESTROY == "false"'
+        when: on_success
+
+apply:
+  stage: finalize
+  script:
+   - echo "terraform-destroy"
+  rules:
+    - if: '$DESTROY == "true"'
+        when: on_success
