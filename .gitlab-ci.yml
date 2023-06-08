@@ -18,6 +18,7 @@ init:
   stage: prepare
   script:
     - echo "terraform-init"
+    - aws s3 ls
 
 plan:
   stage: prepare
@@ -28,9 +29,6 @@ apply:
   stage: finalize
   script:
     - echo "terraform-apply"
-  rules:
-    - if: '$DESTROY == "false"'
-      when: on_success
 
 apply:
   stage: finalize
