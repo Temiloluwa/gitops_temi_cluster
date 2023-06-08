@@ -40,7 +40,7 @@ apply-job:
 destroy-job:
   stage: destroy
   script:
-    - echo "terraform-destroy"
+    - terraform destroy -auto-approve
   rules:
     - if: '$DESTROY == "true"'
       when: on_success
