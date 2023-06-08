@@ -8,17 +8,17 @@ stages:
 init:
   stage: prepare
   script:
-   - echo "terraform-init"
+    - echo "terraform-init"
 
 plan:
   stage: prepare
   script:
-   - echo "terraform-plan"
+    - echo "terraform-plan"
 
 apply:
   stage: finalize
   script:
-   - echo "terraform-apply"
+    - echo "terraform-apply"
   rules:
     - if: '$DESTROY == "false"'
         when: on_success
@@ -26,7 +26,7 @@ apply:
 apply:
   stage: finalize
   script:
-   - echo "terraform-destroy"
+    - echo "terraform-destroy"
   rules:
     - if: '$DESTROY == "true"'
         when: on_success
