@@ -54,7 +54,7 @@ apply:
   script:
     - echo "terraform-apply"
 
-apply:
+destroy:
   stage: destroy
   script:
     - echo "terraform-destroy"
