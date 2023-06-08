@@ -1,51 +1,60 @@
-image:
-  name: hashicorp/terraform:light
-  entrypoint:
-    - '/usr/bin/env'
-    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-    - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}' 
-    - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}' 
-    - 'AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}'
+default:
+  image:
+    name: amazon/aws-cli
+    entrypoint: [""]
+
+services:
+  - docker:dind
+
+before_script:
+  - amazon-linux-extras install docker
+  - yum -y install make 
+  - aws --version
+  - docker --version
 
 variables:
   DESTROY: "false"
+  DEV_ENV: nlp-dev-base
+  DOCKER_HOST: tcp://docker:2375
+
 
 cache:
   paths:
     - .terraform
 
 before_script:
-  - apt install curl
-  - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  - apt install unzip
-  - unzip awscliv2.zip
-  - ./aws/install
+  - amazon-linux-extras install docker
+  - yum -y install make 
+  - sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+  - yum -y install terraform
   - aws --version
-  - terraform --version
+  - docker --version
 
 
 stages:
-  - prepare
-  - finalize
+  - init
+  - plan
+  - apply
+  - destroy
 
 init:
-  stage: prepare
+  stage: init
   script:
     - echo "terraform-init"
     - aws s3 ls
 
 plan:
-  stage: prepare
+  stage: plan
   script:
     - echo "terraform-plan"
 
 apply:
-  stage: finalize
+  stage: apply
   script:
     - echo "terraform-apply"
 
 apply:
-  stage: finalize
+  stage: destroy
   script:
     - echo "terraform-destroy"
   rules:
