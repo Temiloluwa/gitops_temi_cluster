@@ -24,8 +24,8 @@ cache:
 
 before_script:
   - yum install -y yum-utils
-  - yum -y install make
-  - amazon-linux-extras install docker 
+  #- yum -y install make
+  #- amazon-linux-extras install docker 
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
   - yum -y install terraform
   - aws --version
@@ -38,23 +38,23 @@ stages:
   - apply
   - destroy
 
-init:
+init-job:
   stage: init
   script:
     - echo "terraform-init"
     - aws s3 ls
 
-plan:
+plan-job:
   stage: plan
   script:
     - echo "terraform-plan"
 
-apply:
+apply-job:
   stage: apply
   script:
     - echo "terraform-apply"
 
-destroy:
+destroy-job:
   stage: destroy
   script:
     - echo "terraform-destroy"
