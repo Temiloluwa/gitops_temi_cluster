@@ -33,6 +33,9 @@ apply-job:
   stage: apply
   script:
     - terraform apply -auto-approve
+  rules:
+    - if: '$DESTROY == "false"'
+      when: on_success
 
 destroy-job:
   stage: destroy
