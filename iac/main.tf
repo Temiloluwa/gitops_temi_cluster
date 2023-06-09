@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket = "naija-highlights"
-    key    = "iac/state"
+    key    = "iac/state/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -20,7 +20,7 @@ provider "aws" {
 
 
 resource "aws_s3_bucket" "sample" {
-  bucket = "init-s3-bucket-sample-to-be-deleted"
+  bucket = "the-new-init-s3-bucket-sample-to-be-deleted"
 
   tags = {
     Name        = "init-s3-bucket"
