@@ -17,13 +17,3 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 }
-
-
-resource "aws_s3_bucket" "sample" {
-  bucket = "the-new-init-s3-bucket-sample-to-be-deleted"
-
-  tags = {
-    Name        = "init-s3-bucket"
-    Environment = "prod"
-  }
-}
