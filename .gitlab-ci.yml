@@ -40,6 +40,7 @@ apply-job:
 destroy-job:
   stage: destroy
   script:
+    - ls -lah
     - terraform destroy -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $DESTROY == "false"
