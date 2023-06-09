@@ -1,0 +1,49 @@
+default:
+  image:
+    name: amazon/aws-cli
+    entrypoint: [""]
+
+variables:
+  DESTROY: "true"
+
+cache:
+  paths:
+    - .terraform
+    - ./
+
+before_script:
+  - yum install -y yum-utils
+  - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+  - yum -y install terraform
+  - aws --version
+  - cd iac
+  - terraform --version
+  - terraform init
+
+stages:
+  - plan
+  - apply
+  - destroy
+
+plan-job:
+  stage: plan
+  script:
+    - ls -lah
+    - terraform plan
+
+apply-job:
+  stage: apply
+  script:
+    - ls -lah
+    - terraform apply -auto-approve
+
+destroy-job:
+  stage: destroy
+  script:
+    - ls -lah
+    - terraform destroy -auto-approve
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $DESTROY == "false"
+      when: on_success
+
+      
