@@ -43,7 +43,5 @@ destroy-job:
     - ls -lah
     - terraform destroy -auto-approve
   rules:
-    - if: $CI_COMMIT_BRANCH == "main" && $DESTROY == "false"
+    - if: $CI_COMMIT_BRANCH == "main" && $DESTROY == "true"
       when: on_success
-
-      
