@@ -5,6 +5,12 @@ terraform {
       version = "~> 4.0"
     }
   }
+
+  backend "s3" {
+    bucket = "naija-highlights"
+    key    = "iac/state"
+    region = "us-east-1"
+  }
 }
 
 # Configure the AWS Provider
@@ -13,11 +19,11 @@ provider "aws" {
 }
 
 
-resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-test-bucket-234233949"
+resource "aws_s3_bucket" "sample" {
+  bucket = "init-s3-bucket-sample-to-be-deleted"
 
   tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
+    Name        = "init-s3-bucket"
+    Environment = "prod"
   }
 }

@@ -4,11 +4,12 @@ default:
     entrypoint: [""]
 
 variables:
-  DESTROY: "true"
+  DESTROY: "false"
 
 cache:
   paths:
     - .terraform
+    - ./
 
 before_script:
   - yum install -y yum-utils
@@ -27,11 +28,13 @@ stages:
 plan-job:
   stage: plan
   script:
+    - ls -lah
     - terraform plan
 
 apply-job:
   stage: apply
   script:
+    - ls -lah
     - terraform apply -auto-approve
   rules:
     - if: '$DESTROY == "false"'
