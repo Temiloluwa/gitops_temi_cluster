@@ -16,9 +16,6 @@ before_script:
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   - yum -y install terraform
   - aws --version
-  - echo "confirm user access to s3"
-  - echo "$AWS_ACCESS_KEY_ID"
-  - aws s3 ls
   - cd iac
   - terraform --version
   - terraform init
