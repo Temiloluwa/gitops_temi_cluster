@@ -58,7 +58,7 @@ resource "aws_instance" "cluster" {
   key_name = aws_key_pair.this.key_name
 
   ebs_block_device {
-    device_name = "${var.prefix}ebs"
+    device_name = "/dev/sda"
     volume_size = var.volume_size
     volume_type = var.volume_type
     tags = merge(local.default_tags, {
