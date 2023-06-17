@@ -5,8 +5,12 @@ data "aws_vpc" "default" {
   }
 }
 
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
 
@@ -33,7 +37,7 @@ locals {
     validity = "1000"
   }
 
-  subnet_id = element(tolist(data.aws_subnet_ids.default.ids), 0)
+  subnet_id = element(tolist(data.aws_subnets.default.ids), 0)
 }
 
 
@@ -54,11 +58,11 @@ resource "aws_instance" "cluster" {
   key_name = aws_key_pair.this.key_name
 
   ebs_block_device {
-    device_name = "${var.prefix}-ebs"
+    device_name = "${var.prefix}ebs"
     volume_size = var.volume_size
     volume_type = var.volume_type
     tags = merge(local.default_tags, {
-      Name = "${var.prefix}-ebs"
+      Name = "${var.prefix}ebs"
     })
   }
 
