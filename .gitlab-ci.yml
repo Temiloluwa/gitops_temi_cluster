@@ -6,10 +6,10 @@ default:
 variables:
   DESTROY: "false"
 
-#cache:
-  #paths:
-  #  - .terraform
-  #  - ./
+cache:
+  paths:
+    - .terraform
+    - ./
 
 before_script:
   - yum install -y yum-utils

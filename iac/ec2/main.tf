@@ -33,9 +33,8 @@ locals {
     validity = "1000"
   }
 
-  subnet_id = element(data.aws_subnet_ids.default, 0)
+  subnet_id = element(data.aws_subnet_ids.default.ids, 0)
 }
-
 
 
 resource "aws_key_pair" "this" {
