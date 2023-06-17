@@ -30,7 +30,7 @@ plan-job:
   stage: plan
   script:
     - ls -lah
-    - terraform plan
+    - terraform plan -var="keypair_content=$keypair_content"
 
 apply-job:
   stage: apply
