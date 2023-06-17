@@ -19,6 +19,8 @@ before_script:
   - cd iac
   - terraform --version
   - terraform init
+  - echo "confirm user access to s3"
+  - aws s3 ls
 
 stages:
   - plan
