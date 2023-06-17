@@ -33,7 +33,7 @@ locals {
     validity = "1000"
   }
 
-  subnet_id = element(data.aws_subnet_ids.default.ids, 0)
+  subnet_id = element(tolist(data.aws_subnet_ids.default.ids), 0)
 }
 
 
