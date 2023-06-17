@@ -56,16 +56,7 @@ resource "aws_instance" "cluster" {
   })
 
   key_name = aws_key_pair.this.key_name
-
-  root_block_device {
-    volume_size           = 30
-    volume_type           = "gp3"
-    delete_on_termination = true
-    tags = merge(local.default_tags, {
-      Name = "${var.prefix}root"
-    })
-  }
-
+  
   ebs_block_device {
     device_name = "/dev/xvda" # got a lots of errors in finding the right name
     volume_size = var.volume_size
