@@ -1,11 +1,3 @@
-locals {
-  default_tags = {
-    project  = "9ja-highlights"
-    user     = "tobi"
-    validity = "1000"
-  }
-}
-
 data "aws_vpc" "default" {
   filter {
     name   = "isDefault"
@@ -34,6 +26,17 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+locals {
+  default_tags = {
+    project  = "9ja-highlights"
+    user     = "tobi"
+    validity = "1000"
+  }
+
+  subnet_id = element(data.aws_subnet_ids.default, 0)
+}
+
+
 
 resource "aws_key_pair" "this" {
   key_name   = "cluster-key"
@@ -44,7 +47,7 @@ resource "aws_key_pair" "this" {
 resource "aws_instance" "cluster" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-  subnet_id     = data.aws_subnet_ids.default
+  subnet_id     = local.subnet_id
   tags = merge(local.default_tags, {
     Name = "${var.prefix}-cluster"
   })
