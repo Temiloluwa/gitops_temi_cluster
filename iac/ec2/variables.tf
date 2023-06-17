@@ -17,5 +17,5 @@ variable "volume_size" {
 
 
 variable "volume_type" {
-  type = number
+  type = string
 }
