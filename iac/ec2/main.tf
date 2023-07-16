@@ -42,7 +42,7 @@ locals {
 
 
 resource "aws_key_pair" "this" {
-  key_name   = "cluster-key"
+  key_name   = "clusterkey"
   public_key = file(var.keypair_content)
 }
 
@@ -77,9 +77,9 @@ resource "aws_instance" "cluster" {
  connection {
    type        = "ssh"
    host        = self.public_ip
-   user        = "ec2-user"
+   user        = "ubuntu"
    private_key = file(var.private_key_path)
-   timeout     = "4m"
+   timeout     = "1m"
  }
 
 }

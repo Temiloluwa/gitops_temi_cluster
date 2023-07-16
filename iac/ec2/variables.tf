@@ -11,10 +11,6 @@ variable "keypair_content" {
   type = string
 }
 
-variable "private_key_path" {
-  type = string
-}
-
 variable "volume_size" {
   type = number
 }
@@ -22,4 +18,9 @@ variable "volume_size" {
 
 variable "volume_type" {
   type = string
+}
+
+variable "private_key_path" {
+  type        = string
+  description = "Path to the private key file"
 }
