@@ -8,8 +8,9 @@ variables:
 
 cache:
   paths:
-    - .terraform
-    - ./
+    - .terraform/terraform.tfstate
+    - .terraform.lock.hcl
+  
 
 before_script:
   - yum install -y yum-utils
