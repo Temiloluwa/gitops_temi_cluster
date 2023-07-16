@@ -30,12 +30,12 @@ stages:
 plan-job:
   stage: plan
   script:
-    - terraform plan -var="keypair_content=$keypair_content" -var="variable "private_key_path=$private_key_path"
+    - terraform plan -var="keypair_content=$keypair_content" -var="private_key_path=$private_key_path"
 
 apply-job:
   stage: apply
   script:
-    - terraform apply -var="keypair_content=$keypair_content" -var="variable "private_key_path=$private_key_path" -auto-approve
+    - terraform apply -var="keypair_content=$keypair_content" -var="private_key_path=$private_key_path" -auto-approve
 
 destroy-job:
   stage: destroy
