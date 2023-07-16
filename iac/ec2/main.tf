@@ -81,6 +81,5 @@ resource "aws_instance" "cluster" {
    private_key = file(var.private_key_path)
    timeout     = "4m"
  }
- 
 
 }
