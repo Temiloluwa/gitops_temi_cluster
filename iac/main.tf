@@ -26,4 +26,5 @@ module "ec2" {
   keypair_content = var.keypair_content
   volume_size     = var.volume_size
   volume_type     = var.volume_type
+  private_key_path = var.private_key_path
 }
