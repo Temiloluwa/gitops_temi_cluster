@@ -67,8 +67,16 @@ resource "aws_instance" "cluster" {
     })
   }
 
+  provisioner "file" {
+    source      = "${path.module}/installK3sCluster.sh"
+    destination = "/tmp/installK3sCluster.sh"
+  }
+
+
   provisioner "remote-exec" {
-   script = "${file("${path.module}/installK3sCluster.sh")}"
+    inline = [
+      "bash /tmp/installK3sCluster.sh"
+    ]
   }
  
  connection {
