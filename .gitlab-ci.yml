@@ -20,6 +20,7 @@ before_script:
   - terraform --version
   - terraform init
 
+
 stages:
   - plan
   - apply
@@ -29,13 +30,13 @@ plan-job:
   stage: plan
   script:
     - ls -lah
-    - terraform plan
+    - terraform plan -var="keypair_content=$keypair_content"
 
 apply-job:
   stage: apply
   script:
     - ls -lah
-    - terraform apply -auto-approve
+    - terraform apply -var="keypair_content=$keypair_content" -auto-approve
 
 destroy-job:
   stage: destroy
