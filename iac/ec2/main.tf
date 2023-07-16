@@ -67,6 +67,20 @@ resource "aws_instance" "cluster" {
     })
   }
 
-  #user_data = ""
+  provisioner "remote-exec" {
+   inline = [
+     "touch hello.txt",
+     "echo 'Have a great day!' >> hello.txt"
+   ]
+  }
+ 
+ connection {
+   type        = "ssh"
+   host        = self.public_ip
+   user        = "ec2-user"
+   private_key = file(var.private_key_path)
+   timeout     = "4m"
+ }
+ 
 
 }

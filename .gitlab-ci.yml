@@ -30,19 +30,16 @@ stages:
 plan-job:
   stage: plan
   script:
-    - ls -lah
-    - terraform plan -var="keypair_content=$keypair_content"
+    - terraform plan -var="keypair_content=$keypair_content" -var="variable "private_key_path=$private_key_path"
 
 apply-job:
   stage: apply
   script:
-    - ls -lah
-    - terraform apply -var="keypair_content=$keypair_content" -auto-approve
+    - terraform apply -var="keypair_content=$keypair_content" -var="variable "private_key_path=$private_key_path" -auto-approve
 
 destroy-job:
   stage: destroy
   script:
-    - ls -lah
     - terraform destroy -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $DESTROY == "true"

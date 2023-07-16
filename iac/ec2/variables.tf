@@ -11,6 +11,10 @@ variable "keypair_content" {
   type = string
 }
 
+variable "private_key_path" {
+  type = string
+}
+
 variable "volume_size" {
   type = number
 }
