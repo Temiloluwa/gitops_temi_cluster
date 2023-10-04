@@ -1,6 +1,6 @@
-# gitops_naija_highlights
+# GitOps Temi's Cluster
 
-This is the GitOps Repo for 9ja Highlights
+This is the GitOps Repo for my personal Kubernetes ML Cluster
 
 
 ## Technologies
