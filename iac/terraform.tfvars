@@ -1,4 +1,4 @@
-prefix = "ngh"
-instance_type = "t3.xlarge"
-volume_size = 100
-volume_type = "gp3"
+prefix        = "ngh"
+instance_type = "t3a.medium"
+volume_size   = 200
+volume_type   = "gp3"

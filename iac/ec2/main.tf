@@ -42,7 +42,7 @@ locals {
 
 
 resource "aws_key_pair" "this" {
-  key_name   = "cluster-key"
+  key_name   = "clusterkey"
   public_key = file(var.keypair_content)
 }
 
@@ -67,6 +67,24 @@ resource "aws_instance" "cluster" {
     })
   }
 
-  #user_data = ""
+  provisioner "file" {
+    source      = "${path.module}/installK3sCluster.sh"
+    destination = "/tmp/installK3sCluster.sh"
+  }
+
+
+  provisioner "remote-exec" {
+    inline = [
+      "bash /tmp/installK3sCluster.sh"
+    ]
+  }
+ 
+ connection {
+   type        = "ssh"
+   host        = self.public_ip
+   user        = "ubuntu"
+   private_key = file(var.private_key_path)
+   timeout     = "1m"
+ }
 
 }
