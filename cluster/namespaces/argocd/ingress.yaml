@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hifeyinc-argocd-server-http-ingress
+  namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.org/mergeable-ingress-type: "master"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /argocd
+        pathType: Prefix
+        backend:
+          service:
+            name: hifeyinc-argocd-server
+            port:
+              name: http
+#    host: argocd.example.com
+#  tls:
+#  - hosts:
+#    - argocd.example.com
+#    secretName: argocd-ingress-http
