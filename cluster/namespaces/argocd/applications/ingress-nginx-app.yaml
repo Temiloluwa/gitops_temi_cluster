@@ -7,7 +7,7 @@ spec:
   project: hifeyinc-project
   source:
     repoURL: https://gitlab.com/amazing_ai/gitops_temi_cluster.git
-    targetRevision: feature/argo-cd-setup
+    targetRevision: main
     path: cluster/namespaces/ingress-nginx/charts/ingress-nginx
     helm:
       valueFiles: 

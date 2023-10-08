@@ -5,6 +5,7 @@ kubectl create namespace argocd
 
 helm install hifeyinc-argocd argo/argo-cd \
     --version 5.46.7 \
+    --set server.insecure=true \ # ssl termination
     --namespace argocd 
 
 kubectl apply -f ./ingress.yaml -n argocd
