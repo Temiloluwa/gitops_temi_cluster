@@ -11,6 +11,10 @@ spec:
   # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
+  # Allow cluster-scoped resources to be created
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
   - namespace: hifeyinc
