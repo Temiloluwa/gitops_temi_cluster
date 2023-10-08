@@ -15,4 +15,6 @@ spec:
   destinations:
   - namespace: hifeyinc
     server: https://kubernetes.default.svc
+  - namespace: ingress-nginx
+    server: https://kubernetes.default.svc
   
