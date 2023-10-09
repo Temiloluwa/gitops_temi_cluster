@@ -17,5 +17,5 @@ spec:
     targetRevision: main
     path: cluster/namespaces/hifeyinc/charts/external-dns
     helm:
-      valueFiles: 
-        - values.yaml 
+      values: |
+        provider: azure
