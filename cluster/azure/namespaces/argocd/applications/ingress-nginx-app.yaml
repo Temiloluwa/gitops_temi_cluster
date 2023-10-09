@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+  labels:
+    hifeyinc.com/role: infra
+spec:
+  project: hifeyinc-project
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://gitlab.com/amazing_ai/gitops_temi_cluster.git
+    targetRevision: main
+    path: cluster/azure/namespaces/ingress-nginx/charts/ingress-nginx
+    helm:
+      valueFiles: 
+        - values.yaml
+      values: |
+        controller:
+          extraArgs:
+            publish-service: ingress-nginx/ingress-nginx-controller 

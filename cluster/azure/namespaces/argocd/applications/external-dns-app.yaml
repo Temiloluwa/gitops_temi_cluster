@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+  labels:
+    hifeyinc.com/role: infra
+spec:
+  project: hifeyinc-project
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hifeyinc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://gitlab.com/amazing_ai/gitops_temi_cluster.git
+    targetRevision: main
+    path: cluster/azure/namespaces/hifeyinc/charts/external-dns
+    helm:
+      valueFiles: 
+        - values.yaml
+      values: |
+        provider: azure
+        extraVolumes:
+          - name: azure-config-file
+            secret:
+              secretName: azure-config-file
+        extraVolumeMounts:
+          - name: azure-config-file
+            mountPath: /etc/kubernetes
+            readOnly: true
