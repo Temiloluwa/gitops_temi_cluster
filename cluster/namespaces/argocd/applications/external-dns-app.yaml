@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+spec:
+  project: hifeyinc-project
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: hifeyinc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://gitlab.com/amazing_ai/gitops_temi_cluster.git
+    targetRevision: main
+    path: cluster/namespaces/hifeyinc/charts/external-dns
+    helm:
+      valueFiles: 
+        - values.yaml 
