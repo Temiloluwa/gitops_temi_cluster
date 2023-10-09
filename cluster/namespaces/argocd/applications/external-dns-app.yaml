@@ -21,3 +21,11 @@ spec:
         - values.yaml
       values: |
         provider: azure
+        extraVolumes:
+          - name: azure-config-file
+            secret:
+              secretName: azure-config-file
+        extraMounts:
+          - name: azure-config-file
+            mountPath: /etc/kubernetes
+            readOnly: true
