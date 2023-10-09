@@ -7,11 +7,12 @@ Create configuration file in this format.
   "tenantId": "01234abc-de56-ff78-abc1-234567890def",
   "subscriptionId": "01234abc-de56-ff78-abc1-234567890def",
   "resourceGroup": "MyDnsResourceGroup",
-  "aadClientId": "01234abc-de56-ff78-abc1-234567890def",
-  "aadClientSecret": "uKiuXeiwui4jo9quae9o"
+  "aadClientId": "01234abc-de56-ff78-abc1-234567890def", 
+  "aadClientSecret": "uKiuXeiwui4jo9quae9o" # 
 }
 
 ```
-- get tenant id: `az account show --query "tenantId"`: c04e3789-3880-4e6e-a01c-28b66b6c4948
-- get subscription id: `az account show --query "id"`: 10589681-5ffc-4c04-bc50-3f3b976aaea9
-- get resource group: temmie-rg
+- the config is saved as azure.json
+- a service principal is created as granted permissions to the resource group and public dns zone
+- the config is mounted as a volume on external dns
+- once hosts are supplied in an ingress, external dns can add the host automatically to the public dns zone with the service principal

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: cert-manager
   namespace: argocd
   labels:
     hifeyinc.com/role: infra
@@ -9,7 +9,7 @@ spec:
   project: hifeyinc-project
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: hifeyinc
   syncPolicy:
     automated:
       prune: true
@@ -17,11 +17,9 @@ spec:
   source:
     repoURL: https://gitlab.com/amazing_ai/gitops_temi_cluster.git
     targetRevision: main
-    path: cluster/namespaces/ingress-nginx/charts/ingress-nginx
+    path: cluster/namespaces/hifeyinc/charts/cert-manager
     helm:
       valueFiles: 
         - values.yaml
       values: |
-        controller:
-          extraArgs:
-            publish-service: ingress-nginx/ingress-nginx-controller 
+        installCRDs: true
