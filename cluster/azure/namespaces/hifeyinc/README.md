@@ -16,3 +16,7 @@ Create configuration file in this format.
 - a service principal is created as granted permissions to the resource group and public dns zone
 - the config is mounted as a volume on external dns
 - once hosts are supplied in an ingress, external dns can add the host automatically to the public dns zone with the service principal
+
+# Cert Manager
+The Helm chart comes with a version v0.1.0 by default.
+Make sure to change the version and appversion in the Chart.yaml file
