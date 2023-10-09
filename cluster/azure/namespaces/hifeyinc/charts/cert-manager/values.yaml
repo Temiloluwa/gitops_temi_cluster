@@ -63,14 +63,17 @@ strategy: {}
 podDisruptionBudget:
   enabled: false
 
-  # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
-  # or a percentage value (e.g. 25%)
-  # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
-  # minAvailable: 1
+  minAvailable: 1
   # maxUnavailable: 1
 
-# Comma separated list of feature gates that should be enabled on the
-# controller pod.
+  # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
+  # or a percentage value (e.g. 25%)
+
+# Comma separated list of feature gates that should be enabled on the controller
+# Note: do not use this field to pass feature gate values into webhook
+# component as this behaviour relies on a bug that will be fixed in cert-manager 1.13
+# https://github.com/cert-manager/cert-manager/pull/6093
+# Use webhook.extraArgs to pass --feature-gates flag directly instead.
 featureGates: ""
 
 # The maximum number of challenges that can be scheduled as 'processing' at once
@@ -84,7 +87,7 @@ image:
 
   # Override the image tag to deploy by setting this variable.
   # If no value is set, the chart's appVersion will be used.
-  # tag: canary
+  tag: v1.12.5
 
   # Setting a digest will override any tag
   # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -118,29 +121,6 @@ serviceAccount:
 
 # When this flag is enabled, secrets will be automatically removed when the certificate resource is deleted
 enableCertificateOwnerRef: false
-
-# Used to configure options for the controller pod.
-# This allows setting options that'd usually be provided via flags.
-# An APIVersion and Kind must be specified in your values.yaml file.
-# Flags will override options that are set here.
-config:
-#   apiVersion: controller.config.cert-manager.io/v1alpha1
-#   kind: ControllerConfiguration
-#   logging:
-#    verbosity: 2
-#    format: text
-#   leaderElectionConfig:
-#    namespace: kube-system
-#   kubernetesAPIQPS: 9000
-#   kubernetesAPIBurst: 9000
-#   numberOfConcurrentWorkers: 200
-#   featureGates:
-#     additionalCertificateOutputFormats: true
-#     experimentalCertificateSigningRequestControllers: true
-#     experimentalGatewayAPISupport: true
-#     serverSideApply: true
-#     literalCertificateSubject: true
-#     useCertificateRequestBasicConstraints: true
 
 # Setting Nameservers for DNS01 Self Check
 # See: https://cert-manager.io/docs/configuration/acme/dns01/#setting-nameservers-for-dns01-self-check
@@ -234,7 +214,6 @@ prometheus:
     labels: {}
     annotations: {}
     honorLabels: false
-    endpointAdditionalProperties: {}
 
 # Use these variables to configure the HTTP_PROXY environment variables
 # http_proxy: "http://proxy:8080"
@@ -277,23 +256,19 @@ topologySpreadConstraints: []
 
 # LivenessProbe settings for the controller container of the controller Pod.
 #
-# Enabled by default, because we want to enable the clock-skew liveness probe that
-# restarts the controller in case of a skew between the system clock and the monotonic clock.
+# Disabled by default, because the controller has a leader election mechanism
+# which should cause it to exit if it is unable to renew its leader election
+# record.
 # LivenessProbe durations and thresholds are based on those used for the Kubernetes
 # controller-manager. See:
 # https://github.com/kubernetes/kubernetes/blob/806b30170c61a38fedd54cc9ede4cd6275a1ad3b/cmd/kubeadm/app/util/staticpod/utils.go#L241-L245
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 15
   successThreshold: 1
   failureThreshold: 8
-
-# enableServiceLinks indicates whether information about services should be
-# injected into pod's environment variables, matching the syntax of Docker
-# links.
-enableServiceLinks: false
 
 webhook:
   replicaCount: 1
@@ -332,11 +307,11 @@ webhook:
   podDisruptionBudget:
     enabled: false
 
+    minAvailable: 1
+    # maxUnavailable: 1
+
     # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
     # or a percentage value (e.g. 25%)
-    # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
-    # minAvailable: 1
-    # maxUnavailable: 1
 
   # Container Security Context to be set on the webhook component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -368,10 +343,6 @@ webhook:
   extraArgs: []
   # Path to a file containing a WebhookConfiguration object used to configure the webhook
   # - --config=<path-to-config-file>
-
-  # Comma separated list of feature gates that should be enabled on the
-  # webhook pod.
-  featureGates: ""
 
   resources: {}
     # requests:
@@ -417,7 +388,7 @@ webhook:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.12.5
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -497,27 +468,9 @@ webhook:
   volumes: []
   volumeMounts: []
 
-  # enableServiceLinks indicates whether information about services should be
-  # injected into pod's environment variables, matching the syntax of Docker
-  # links.
-  enableServiceLinks: false
-
 cainjector:
   enabled: true
   replicaCount: 1
-
-  # Used to configure options for the cainjector pod.
-  # This allows setting options that'd usually be provided via flags.
-  # An APIVersion and Kind must be specified in your values.yaml file.
-  # Flags will override options that are set here.
-  config:
-    # apiVersion: cainjector.config.cert-manager.io/v1alpha1
-    # kind: CAInjectorConfiguration
-    # logging:
-    #  verbosity: 2
-    #  format: text
-    # leaderElectionConfig:
-    #  namespace: kube-system
 
   strategy: {}
     # type: RollingUpdate
@@ -535,11 +488,11 @@ cainjector:
   podDisruptionBudget:
     enabled: false
 
+    minAvailable: 1
+    # maxUnavailable: 1
+
     # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
     # or a percentage value (e.g. 25%)
-    # if neither minAvailable or maxUnavailable is set, we default to `minAvailable: 1`
-    # minAvailable: 1
-    # maxUnavailable: 1
 
   # Container Security Context to be set on the cainjector component container
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -589,7 +542,7 @@ cainjector:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.12.5
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -615,11 +568,6 @@ cainjector:
   volumes: []
   volumeMounts: []
 
-  # enableServiceLinks indicates whether information about services should be
-  # injected into pod's environment variables, matching the syntax of Docker
-  # links.
-  enableServiceLinks: false
-
 acmesolver:
   image:
     repository: quay.io/jetstack/cert-manager-acmesolver
@@ -629,7 +577,7 @@ acmesolver:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.12.5
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -703,7 +651,7 @@ startupapicheck:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.12.5
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -742,8 +690,3 @@ startupapicheck:
 
   volumes: []
   volumeMounts: []
-
-  # enableServiceLinks indicates whether information about services should be
-  # injected into pod's environment variables, matching the syntax of Docker
-  # links.
-  enableServiceLinks: false
