@@ -45,7 +45,6 @@ spec:
       {{- if hasKey .Values.cainjector "automountServiceAccountToken" }}
       automountServiceAccountToken: {{ .Values.cainjector.automountServiceAccountToken }}
       {{- end }}
-      enableServiceLinks: {{ .Values.cainjector.enableServiceLinks }}
       {{- with .Values.global.priorityClassName }}
       priorityClassName: {{ . | quote }}
       {{- end }}
@@ -55,7 +54,9 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}-cainjector
-          image: "{{ template "image" (tuple .Values.cainjector.image $.Chart.AppVersion) }}"
+          {{- with .Values.cainjector.image }}
+          image: "{{- if .registry -}}{{ .registry }}/{{- end -}}{{ .repository }}{{- if (.digest) -}} @{{ .digest }}{{- else -}}:{{ default $.Chart.AppVersion .tag }} {{- end -}}"
+          {{- end }}
           imagePullPolicy: {{ .Values.cainjector.image.pullPolicy }}
           args:
           {{- if .Values.global.logLevel }}
