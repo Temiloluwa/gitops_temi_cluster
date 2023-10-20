@@ -32,9 +32,9 @@ data "aws_ami" "ubuntu" {
 
 locals {
   default_tags = {
-    project  = "9ja-highlights"
+    project  = "temmie-cluster"
     user     = "tobi"
-    validity = "1000"
+    validity = "100000"
   }
 
   subnet_id = element(tolist(data.aws_subnets.default.ids), 0)
@@ -68,14 +68,14 @@ resource "aws_instance" "cluster" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/installK3sCluster.sh"
-    destination = "/tmp/installK3sCluster.sh"
+    source      = "${path.module}/configure-cluster.sh"
+    destination = "/tmp/configure-cluster.sh"
   }
 
 
   provisioner "remote-exec" {
     inline = [
-      "bash /tmp/installK3sCluster.sh"
+      "bash /tmp/configure-cluster.sh"
     ]
   }
  
