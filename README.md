@@ -24,7 +24,7 @@ The development cluster is a swarm cluster hosted on AWS
 
 |S/N  | App  |
 |---|---|
-| 1  | [https://github.com/Temiloluwa/lingua_trainer](Lingua Trainer)| 
+| 1  | [Lingua Trainer](https://github.com/Temiloluwa/lingua_trainer)| 
 | 2  |  | 
 
 
