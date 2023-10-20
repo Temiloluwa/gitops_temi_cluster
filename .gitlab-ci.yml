@@ -5,6 +5,7 @@ default:
 
 variables:
   DESTROY: "false"
+  DEPLOY: "false"
 
 cache:
   paths:
@@ -32,12 +33,16 @@ plan-job:
   stage: plan
   script:
     - terraform plan -var="keypair_content=$keypair_content" -var="private_key_path=$private_key_path"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $DEPLOY == "true"
 
 
 apply-job:
   stage: apply
   script:
     - terraform apply -var="keypair_content=$keypair_content" -var="private_key_path=$private_key_path" -auto-approve
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $DEPLOY == "true"
 
 
 destroy-job:
@@ -46,4 +51,3 @@ destroy-job:
     - terraform destroy -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $DESTROY == "true"
-      when: on_success
