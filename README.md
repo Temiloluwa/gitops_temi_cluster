@@ -8,7 +8,8 @@ This GitOps Repo facilitates the continuous deployment of my AI and ML apps.
 The development cluster is a swarm cluster hosted on AWS
 
 - **Number of Nodes**: 2
-- **Cloud Platform**: AWS (EC2)
+- **Instances**: EC2 Gravition instances (g instances)
+- **Cloud Platform**: AWS
 - **Cluster Link**: [https://cluster.hifeyinc.com](https://cluster.hifeyinc.com)
 
 ## Technologies
@@ -16,8 +17,9 @@ The development cluster is a swarm cluster hosted on AWS
 |S/N  | Technology  |Purpose|  
 |---|---|---|
 | 1  | ![](./assets/imgs/terraform.jpg) Terraform| IAC   |
-| 2  | ![](./assets/imgs/portainer.jpg) Portainer  | Container Management and Continous Deployment   |
-| 3  | ![](./assets/imgs/npm.jpg) Ngnix Proxy Manager  | Reverse Proxy   |
+| 2  | ![](./assets/imgs/terraform.jpg) Gitlab| Continuous Integration   |
+| 3  | ![](./assets/imgs/portainer.jpg) Portainer  | Container Management and Continous Deployment   |
+| 4  | ![](./assets/imgs/npm.jpg) Ngnix Proxy Manager  | Reverse Proxy   |
 
 
 ## Deployed Applications
