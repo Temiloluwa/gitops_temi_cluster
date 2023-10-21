@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   lingua-trainer:
-    image: temmiecvml/lingua_trainer:0.0.2 
+    image: temmiecvml/lingua_trainer:0.0.2-g
     container_name: lingua-trainer
     ports:
       - "8501:8501"
