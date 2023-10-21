@@ -9,7 +9,9 @@
 1. Install docker on master and worker (This should be done by the configuration management e.g tf provisioner, ansible)
 Ensure all the required incoming ports are open in your NSG for swarm
 ```
+sudo yum update
 sudo yum install docker -y
+sudo systemctl start docker
 
 ```
 2. Run on master

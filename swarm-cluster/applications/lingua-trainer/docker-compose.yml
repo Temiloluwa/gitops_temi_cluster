@@ -10,4 +10,4 @@ services:
       replicas: 1  
       placement:
         constraints:
-          - "node.id==pogcgi31cog4gtaqom7fpup3b"
+          - "node.id==s0d30q8t1wmfxkx2i24m5zcad"
