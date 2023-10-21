@@ -17,7 +17,7 @@ The development cluster is a swarm cluster hosted on AWS
 |S/N  | Technology  |Purpose|  
 |---|---|---|
 | 1  | ![](./assets/imgs/terraform.jpg) Terraform| IAC   |
-| 2  | ![](./assets/imgs/terraform.jpg) Gitlab| Continuous Integration   |
+| 2  | ![](./assets/imgs/gitlab.jpg) Gitlab| Continuous Integration   |
 | 3  | ![](./assets/imgs/portainer.jpg) Portainer  | Container Management and Continous Deployment   |
 | 4  | ![](./assets/imgs/npm.jpg) Ngnix Proxy Manager  | Reverse Proxy   |
 
