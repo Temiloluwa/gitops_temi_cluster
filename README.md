@@ -10,7 +10,7 @@ The development cluster is a swarm cluster hosted on AWS
 - **Number of Nodes**: 2
 - **Instances**: EC2 Gravition instances (g instances)
 - **Cloud Platform**: AWS
-- **Cluster Link**: [https://cluster.hifeyinc.com](https://cluster.hifeyinc.com)
+- **Cluster**: [https://cluster.hifeyinc.com](https://cluster.hifeyinc.com)
 
 ## Technologies
 
@@ -24,9 +24,9 @@ The development cluster is a swarm cluster hosted on AWS
 
 ## Deployed Applications
 
-|S/N  | App  |
-|---|---|
-| 1  | [Lingua Trainer](https://github.com/Temiloluwa/lingua_trainer)| 
-| 2  |  | 
+|S/N  | Code  | Application |
+|---|---|---|
+| 1  | [Lingua Trainer](https://github.com/Temiloluwa/lingua_trainer)| [https://app.hifeyinc.com](https://app.hifeyinc.com) |
+| 2  |  | |
 
 
