@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  backend:
+    image: temmiecvml/hyc-backend:0.0.1
+    restart: always
+    deploy:
+      replicas: 1  
+      placement:
+        constraints:
+          - "node.id==s0d30q8t1wmfxkx2i24m5zcad"
+    ports:
+      - "8100:8100"
+    networks:
+      - hyc_overlay_network
+
+networks:
+  hyc_overlay_network:
+    driver: overlay
