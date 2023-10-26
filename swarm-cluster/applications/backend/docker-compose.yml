@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  streamlit:
-    image: temmiecvml/hyc-streamlit-apps:0.0.1
+  backend:
+    image: temmiecvml/hyc-backend:0.0.1
     restart: always
     deploy:
       replicas: 1  
@@ -9,7 +9,7 @@ services:
         constraints:
           - "node.id==s0d30q8t1wmfxkx2i24m5zcad"
     ports:
-      - "8501:8501"
+      - "8100:8100"
     networks:
       - hyc_overlay_network
 

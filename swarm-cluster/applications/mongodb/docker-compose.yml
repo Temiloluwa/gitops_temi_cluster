@@ -2,7 +2,12 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:latest
-    container_name: mongodb
+    restart: always
+    deploy:
+      replicas: 1  
+      placement:
+        constraints:
+          - "node.id==s0d30q8t1wmfxkx2i24m5zcad"
     ports:
       - 27000:27017
     volumes:
@@ -10,6 +15,12 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=myadmin
       - MONGO_INITDB_ROOT_PASSWORD=mypassword
+    networks:
+      - hyc_overlay_network
 
 volumes:
   mongodb_data:
+
+networks:
+  hyc_overlay_network:
+    driver: overlay
