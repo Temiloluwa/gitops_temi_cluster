@@ -10,9 +10,3 @@ services:
           - "node.id==s0d30q8t1wmfxkx2i24m5zcad"
     ports:
       - "8501:8501"
-    networks:
-      - hyc_overlay_network
-
-networks:
-  hyc_overlay_network:
-    driver: overlay
