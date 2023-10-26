@@ -15,12 +15,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=myadmin
       - MONGO_INITDB_ROOT_PASSWORD=mypassword
-    networks:
-      - hyc_overlay_network
 
 volumes:
   mongodb_data:
 
-networks:
-  hyc_overlay_network:
-    driver: overlay
