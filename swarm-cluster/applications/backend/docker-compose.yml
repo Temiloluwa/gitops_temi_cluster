@@ -1,9 +1,15 @@
 version: "3.8"
 services:
   backend:
-    image: temmiecvml/hyc-backend:0.0.1
+    image: temmiecvml/hyc-backend:0.0.1-dev
     restart: always
     deploy:
       replicas: 1  
     ports:
       - "8100:8100"
+    networks:
+      - privateoverlay
+    
+networks:
+  privateoverlay:
+    driver: overlay
