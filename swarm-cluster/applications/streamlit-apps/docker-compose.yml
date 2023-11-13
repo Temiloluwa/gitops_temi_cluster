@@ -10,8 +10,8 @@ services:
     ports:
       - "8501:8501"
     networks:
-      - privateoverlay
+      - backend_privateoverlay
 
 networks:
-  privateoverlay:
+  backend_privateoverlay:
     external: true
