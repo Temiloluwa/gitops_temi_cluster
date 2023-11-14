@@ -27,11 +27,4 @@ Local dev environment is setup using Ubuntu Multipass
     multipass shell hyc-dev-worker
     ```
 
-4. Install Docker
-
-    ```bash
-    sudo apt update
-    sudo apt upgrade
-    sudo apt  install docker.io
-
-    ```
+4. [Install Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
