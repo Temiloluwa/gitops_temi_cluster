@@ -11,6 +11,6 @@ services:
       replicas: 1
     
     volumes:
-      - ./npm-data:/data
-      - ./npm-letsencrypt:/etc/letsencrypt  
+      - data:/data
+      - letsencrypt:/etc/letsencrypt  
       
