@@ -7,9 +7,17 @@ services:
       replicas: 1  
     ports:
       - "8100:8100"
+    env_file:
+      - stack.env
+    secrets:
+      - openai_apikey
     networks:
       - privateoverlay
-    
+
+secrets:
+  openai_apikey:
+    external: true
+
 networks:
   privateoverlay:
     driver: overlay
