@@ -8,5 +8,13 @@ services:
       - '443:443' 
       - '81:81' 
     deploy:
-      replicas: 1  
+      replicas: 1
+    
+    volumes:
+      - data:/data
+      - letsencrypt:/etc/letsencrypt  
 
+volumes:
+  data:
+  letsencrypt:
+  
