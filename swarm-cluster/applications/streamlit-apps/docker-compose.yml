@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   streamlit:
-    image: temmiecvml/hyc-streamlit-apps:0.0.1-dev
+    image: temmiecvml/hyc-streamlit-apps:0.0.1-dev.g
     env_file:
       - stack.env
     restart: always

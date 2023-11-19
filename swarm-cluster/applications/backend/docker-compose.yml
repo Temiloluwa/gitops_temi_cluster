@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   backend:
-    image: temmiecvml/hyc-backend:0.0.1-dev
+    image: temmiecvml/hyc-backend:0.0.1-dev.g
     restart: always
     deploy:
       replicas: 1  
