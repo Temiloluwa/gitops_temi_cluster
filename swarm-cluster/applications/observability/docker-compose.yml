@@ -21,7 +21,7 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
-        links:
+    links:
       - cadvisor:cadvisor
       - alertmanager:alertmanager
 #      - pushgateway:pushgateway
