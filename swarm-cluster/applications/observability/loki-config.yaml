@@ -1,4 +1,6 @@
 ---
+version: "3"
+
 server:
   http_listen_port: 3100
 memberlist:
