@@ -1,12 +1,15 @@
 version: "3.8"
 services:
   streamlit:
-    image: temmiecvml/hyc-streamlit-apps:0.0.1-dev.g
+    image: temmiecvml/hyc-streamlit-apps:0.0.2-g
     env_file:
       - stack.env
     restart: always
     deploy:
       replicas: 1  
+      placement:
+        constraints:
+          - "node.id==cpsz7wd431xmkfltywmg4xopu"
     ports:
       - "8501:8501"
     networks:
