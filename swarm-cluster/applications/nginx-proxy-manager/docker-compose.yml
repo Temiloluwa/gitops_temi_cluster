@@ -15,7 +15,14 @@ services:
     
     volumes:
       - data:/data
-      - letsencrypt:/etc/letsencrypt  
+      - letsencrypt:/etc/letsencrypt
+    
+    networks:
+      - backend_privateoverlay
+      
+networks:
+  backend_privateoverlay:
+    external: true
 
 volumes:
   data:
