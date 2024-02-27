@@ -12,3 +12,9 @@ services:
           - "node.id==cpsz7wd431xmkfltywmg4xopu"
     ports:
       - "8501:8501"
+    networks:
+      - backend_privateoverlay
+
+networks:
+  backend_privateoverlay:
+    external: true

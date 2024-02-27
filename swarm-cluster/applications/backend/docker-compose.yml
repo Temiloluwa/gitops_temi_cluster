@@ -4,9 +4,23 @@ services:
     image: temmiecvml/hyc-backend:0.0.2-g
     restart: always
     deploy:
-      replicas: 1  
+      replicas: 1 
       placement:
         constraints:
           - "node.id==cpsz7wd431xmkfltywmg4xopu"
     ports:
       - "8100:8100"
+    env_file:
+      - stack.env
+    secrets:
+      - openai_apikey
+    networks:
+      - privateoverlay
+
+secrets:
+  openai_apikey:
+    external: true
+
+networks:
+  privateoverlay:
+    driver: overlay
