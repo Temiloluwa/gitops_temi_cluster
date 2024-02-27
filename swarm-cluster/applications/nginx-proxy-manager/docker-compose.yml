@@ -9,6 +9,9 @@ services:
       - '81:81' 
     deploy:
       replicas: 1
+      placement:
+        constraints:
+          - "node.id==xlhac07gpqlvkahvplgkt8ant"
     
     volumes:
       - data:/data
