@@ -1,12 +1,12 @@
 version: "3.8"
 services:
   backend:
-    image: temmiecvml/hyc-backend:0.0.1
+    image: temmiecvml/hyc-backend:0.0.2-g
     restart: always
     deploy:
       replicas: 1  
       placement:
         constraints:
-          - "node.id==s0d30q8t1wmfxkx2i24m5zcad"
+          - "node.id==cpsz7wd431xmkfltywmg4xopu"
     ports:
       - "8100:8100"
