@@ -33,7 +33,7 @@ stages:
 plan-job:
   stage: plan
   script:
-    - terraform plan -var="keypair_content=$keypair_content" -var="private_key_path=$private_key_path"
+    - terraform plan -var="key_pair_name=$key_pair_name" -var="key_pair_content=$key_pair_content"
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
@@ -41,7 +41,7 @@ plan-job:
 apply-job:
   stage: apply
   script:
-    - terraform apply -var="keypair_content=$keypair_content" -var="private_key_path=$private_key_path" -auto-approve
+    - terraform apply -var="key_pair_name=$key_pair_name" -var="key_pair_content=$key_pair_content" -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
