@@ -16,13 +16,13 @@ variable "volume_type" {
 }
 
 variable "key_pair_name" {
-  type = string
+  type      = string
   sensitive = true
 }
 
-variable "key_pair_content" {
+variable "key_pair_file_path" {
   type        = string
   description = "content of key pair"
-  sensitive = true
+  sensitive   = true
 }
 
