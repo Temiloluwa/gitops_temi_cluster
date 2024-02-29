@@ -2,12 +2,7 @@ variable "prefix" {
   type = string
 }
 
-
 variable "instance_type" {
-  type = string
-}
-
-variable "keypair_content" {
   type = string
 }
 
@@ -20,7 +15,14 @@ variable "volume_type" {
   type = string
 }
 
-variable "private_key_path" {
-  type        = string
-  description = "Path to the private key file"
+variable "key_pair_name" {
+  type = string
+  sensitive = true
 }
+
+variable "key_pair_content" {
+  type        = string
+  description = "content of key pair"
+  sensitive = true
+}
+
