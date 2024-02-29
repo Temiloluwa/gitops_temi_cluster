@@ -39,13 +39,6 @@ locals {
   subnet_id = element(tolist(data.aws_subnets.default.ids), 0)
 }
 
-
-resource "aws_key_pair" "this" {
-  key_name   = "clusterkey"
-  public_key = file(var.keypair_content)
-}
-
-
 resource "aws_instance" "cluster" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
@@ -54,7 +47,7 @@ resource "aws_instance" "cluster" {
     Name = "${var.prefix}-cluster"
   })
 
-  key_name = aws_key_pair.this.key_name
+  key_name = var.key_pair_name
   
   ebs_block_device {
     device_name = "/dev/xvda" # got a lots of errors in finding the right name
@@ -81,7 +74,7 @@ resource "aws_instance" "cluster" {
    type        = "ssh"
    host        = self.public_ip
    user        = "ubuntu"
-   private_key = file(var.private_key_path)
+   password    =  file(var.key_pair_content)
    timeout     = "1m"
  }
 
