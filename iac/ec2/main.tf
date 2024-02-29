@@ -5,7 +5,6 @@ data "aws_vpc" "default" {
   }
 }
 
-
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
@@ -71,7 +70,6 @@ resource "aws_instance" "cluster" {
     source      = "${path.module}/configure-cluster.sh"
     destination = "/tmp/configure-cluster.sh"
   }
-
 
   provisioner "remote-exec" {
     inline = [
