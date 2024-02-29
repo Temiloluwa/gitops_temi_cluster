@@ -12,6 +12,7 @@ data "aws_subnets" "default" {
   }
 }
 
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 

@@ -1,13 +1,4 @@
 terraform {
-  cloud {
-    organization = "hifeyinc"
-    hostname     = "app.terraform.io"
-
-    workspaces {
-      name = "gitops_temi_cluster"
-    }
-  }
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -15,9 +6,16 @@ terraform {
     }
   }
 
-  required_version = "~> 1.7" # your terraform cli version
+  backend "s3" {
+    bucket = "hifeyinc-cluster"
+    key    = "iac/state/terraform.tfstate"
+    region = "us-east-1"
+  }
+
+  required_version = "~> 1.7"
 }
 
+# Configure the AWS Provider
 provider "aws" {
   region = "us-east-1"
 }
