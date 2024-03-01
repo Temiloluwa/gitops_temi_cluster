@@ -49,6 +49,6 @@ apply-job:
 destroy-job:
   stage: destroy
   script:
-    - terraform destroy -auto-approve
+    - terraform destroy -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path" -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
