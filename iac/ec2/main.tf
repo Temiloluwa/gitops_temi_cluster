@@ -12,21 +12,19 @@ data "aws_subnets" "default" {
   }
 }
 
-
-data "aws_ami" "ubuntu" {
+data "aws_ami" "amazon_linux" {
   most_recent = true
+  owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["al2023-ami-2023.3.20240219.0-kernel-6.1-arm64"] 
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+  name   = "virtualization-type"
+  values = ["hvm"]
   }
-
-  owners = ["099720109477"] # Canonical
 }
 
 locals {
@@ -35,35 +33,23 @@ locals {
     user     = "tobi"
     validity = "100000"
   }
-
   subnet_id = element(tolist(data.aws_subnets.default.ids), 0)
 }
 
-
-resource "aws_key_pair" "this" {
-  key_name   = "clusterkey"
-  public_key = file(var.keypair_content)
-}
-
-
 resource "aws_instance" "cluster" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
   subnet_id     = local.subnet_id
-  tags = merge(local.default_tags, {
-    Name = "${var.prefix}-cluster"
-  })
+  tags          = merge(local.default_tags, { Name = "${var.prefix}-cluster"})
 
-  key_name = aws_key_pair.this.key_name
+  key_name = var.key_pair_name
   
   ebs_block_device {
-    device_name = "/dev/xvda" # got a lots of errors in finding the right name
+    device_name = "/dev/xvda" 
     volume_size = var.volume_size
     volume_type = var.volume_type
     delete_on_termination = true
-    tags = merge(local.default_tags, {
-      Name = "${var.prefix}ebs"
-    })
+    tags = merge(local.default_tags, { Name = "${var.prefix}ebs" })
   }
 
   provisioner "file" {
@@ -80,9 +66,8 @@ resource "aws_instance" "cluster" {
  connection {
    type        = "ssh"
    host        = self.public_ip
-   user        = "ubuntu"
-   private_key = file(var.private_key_path)
+   user        = "ec2-user"
+   private_key =  file(var.key_pair_file_path)
    timeout     = "1m"
  }
-
 }
