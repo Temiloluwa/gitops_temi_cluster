@@ -10,7 +10,6 @@ variable "volume_size" {
   type = number
 }
 
-
 variable "volume_type" {
   type = string
 }
@@ -25,4 +24,3 @@ variable "key_pair_file_path" {
   description = "content of key pair"
   sensitive   = true
 }
-
