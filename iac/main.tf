@@ -7,15 +7,12 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "hifeyinc-cluster"
-    key    = "iac/state/terraform.tfstate"
+    bucket = "temi-gitops-cluster"
+    key    = "swarm-cluster/iac/state/terraform.tfstate"
     region = "us-east-1"
   }
-
-  required_version = "~> 1.7"
 }
 
-# Configure the AWS Provider
 provider "aws" {
   region = "us-east-1"
 }

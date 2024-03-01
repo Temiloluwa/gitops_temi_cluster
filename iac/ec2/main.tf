@@ -24,7 +24,7 @@ data "aws_ami" "amazon_linux" {
   filter {
   name   = "virtualization-type"
   values = ["hvm"]
-    }
+  }
 }
 
 locals {
@@ -40,9 +40,7 @@ resource "aws_instance" "cluster" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
   subnet_id     = local.subnet_id
-  tags = merge(local.default_tags, {
-    Name = "${var.prefix}-cluster"
-  })
+  tags          = merge(local.default_tags, { Name = "${var.prefix}-cluster"})
 
   key_name = var.key_pair_name
   
@@ -51,9 +49,7 @@ resource "aws_instance" "cluster" {
     volume_size = var.volume_size
     volume_type = var.volume_type
     delete_on_termination = true
-    tags = merge(local.default_tags, {
-      Name = "${var.prefix}ebs"
-    })
+    tags = merge(local.default_tags, { Name = "${var.prefix}ebs" })
   }
 
   provisioner "file" {
@@ -74,5 +70,4 @@ resource "aws_instance" "cluster" {
    private_key =  file(var.key_pair_file_path)
    timeout     = "1m"
  }
-
 }

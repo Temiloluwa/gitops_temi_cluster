@@ -4,8 +4,8 @@ default:
     entrypoint: [""]
 
 variables:
-  DESTROY: "true"
-  DEPLOY: "true"
+  DESTROY: "false"
+  DEPLOY: "false"
   DEPLOY_BRANCH: "staging"
 
 cache:
