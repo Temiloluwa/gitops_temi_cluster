@@ -21,7 +21,7 @@ variable "key_pair_name" {
   sensitive = true
 }
 
-variable "key_pair_content" {
+variable "key_pair_file_path" {
   type        = string
   description = "content of key pair"
   sensitive = true
