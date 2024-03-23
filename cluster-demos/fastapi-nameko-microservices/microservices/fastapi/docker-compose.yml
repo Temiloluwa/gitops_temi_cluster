@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  fastapi:
+    container_name: fastapi
+    image: demo/amqp-fastapi:0.0.2
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+    networks:
+      - rabbitmq_rabbitmq_network
+
+networks:
+  rabbitmq_rabbitmq_network:
+    external: true

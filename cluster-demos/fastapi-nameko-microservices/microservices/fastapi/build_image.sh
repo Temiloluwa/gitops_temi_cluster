@@ -1,0 +1,1 @@
+docker build --no-cache -t demo/amqp-fastapi:0.0.2 .
