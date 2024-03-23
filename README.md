@@ -30,9 +30,9 @@ Some Demo apps are present in this repo to experiment with some functionalities
 | 4  | ![](./assets/imgs/npm.jpg) Ngnix Proxy Manager  | Reverse Proxy   |
 | 5  | ![](./assets/imgs/streamlit.jpg) Streamlit  | Frontend  |
 | 6  | ![](./assets/imgs/fastapi.jpeg) FastAPI  | Api   |
-| 7  | ![]() RPC Microservices Framework  | Nameko   |
-| 8  | ![]() NextJS  | Frontend   |
-| 9  | ![]() RabbitMQ  | AMQP Broker   |
+| 7  | Nameko  |  RPC Microservices Framework   |
+| 8  |  NextJS  | Frontend   |
+| 9  |  RabbitMQ  | AMQP Broker   |
 
 
 ## Deployed Applications
