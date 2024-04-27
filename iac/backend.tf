@@ -1,9 +1,9 @@
 terraform {
   cloud {
-    organization = local.tf_cloud.organization
+    organization = "hifeyinc"
 
     workspaces {
-      name = local.tf_cloud.workspace
+      name = "temi-gitops-cluster"
     }
   }
 }

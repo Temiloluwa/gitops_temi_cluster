@@ -6,7 +6,7 @@ default:
 variables:
   DESTROY: "false"
   DEPLOY: "false"
-  DEPLOY_BRANCH: "staging"
+  DEPLOY_BRANCH: "main"
 
 cache:
   paths:
@@ -33,7 +33,7 @@ stages:
 plan-job:
   stage: plan
   script:
-    - terraform plan -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path"
+    - terraform plan
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
@@ -41,7 +41,7 @@ plan-job:
 apply-job:
   stage: apply
   script:
-    - terraform apply -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path" -auto-approve
+    - terraform apply  -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
@@ -49,6 +49,6 @@ apply-job:
 destroy-job:
   stage: destroy
   script:
-    - terraform destroy -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path" -auto-approve
+    - terraform destroy -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"

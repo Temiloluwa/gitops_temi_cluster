@@ -10,6 +10,7 @@ resource "aws_instance" "hyc-compute" {
 
   vpc_security_group_ids = [aws_security_group.hyc-cluster-sg-tf.id]
 
+  key_name = local.key_pair_name
   
   ebs_block_device {
     device_name = "/dev/xvda" 

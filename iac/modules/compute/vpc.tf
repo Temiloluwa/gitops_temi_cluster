@@ -1,6 +1,6 @@
 resource "aws_security_group" "hyc-cluster-sg-tf" {
   name        = "hyc-cluster-sg-tf"
-  description = "Allow TLS inbound traffic and all outbound traffic"
+  description = "Security group for Hifeyinc cluster"
   vpc_id      = data.aws_vpc.default.id
 
   tags = {
@@ -12,30 +12,44 @@ resource "aws_security_group" "hyc-cluster-sg-tf" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "hyc-cluster-sg-tf_ipv4" {
+
+resource "aws_vpc_security_group_ingress_rule" "http" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 443
+  from_port         = 80
   ip_protocol       = "tcp"
-  to_port           = 443
+  to_port           = 80
+  tags = {
+    Name = "http"
+  }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "hyc-cluster-sg-tf_ipv6" {
+resource "aws_vpc_security_group_ingress_rule" "https" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
-  cidr_ipv6         = "::/0"
+  cidr_ipv4       = "0.0.0.0/0"
   from_port         = 443
   ip_protocol       = "tcp"
   to_port           = 443
+  tags = {
+    Name = "https"
+  }
 }
+
+
+resource "aws_vpc_security_group_ingress_rule" "ssh" {
+  security_group_id = aws_security_group.hyc-cluster-sg-tf.id
+  cidr_ipv4       = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+  tags = {
+    Name = "ssh"
+  }
+}
+
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
-  cidr_ipv4         = "0.0.0.0/0"
-  ip_protocol       = "-1" # semantically equivalent to all ports
-}
-
-resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv6" {
-  security_group_id = aws_security_group.hyc-cluster-sg-tf.id
-  cidr_ipv6         = "::/0"
+  cidr_ipv4       = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }

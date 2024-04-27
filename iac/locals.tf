@@ -1,9 +1,5 @@
 locals {
   region = "us-east-1"
-  tf_cloud = {
-    organization = "hifeyinc"
-    workspace    = "temi-gitops-cluster"
-  }
 
   tags = {
     owner       = "temi"
