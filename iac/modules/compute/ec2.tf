@@ -8,10 +8,12 @@ resource "aws_instance" "hyc-compute" {
     Name = "${local.prefix}-${var.name}-${count.index}"
   }
 
-  vpc_security_group_ids = [aws_security_group.hyc-cluster-sg-tf.id]
+  vpc_security_group_ids = [var.security_group_id]
 
-  key_name = local.key_pair_name
-  
+  key_name = local.key_pair_name  
+  disable_api_stop = var.enable_stop_protection 
+  disable_api_termination = var.enable_termination_protection  
+
   ebs_block_device {
     device_name = "/dev/xvda" 
     volume_size = var.volume_size
@@ -25,6 +27,7 @@ resource "aws_instance" "hyc-compute" {
 
   user_data = templatefile(var.configuration_script_path,
     {
-      manager_swarm_id = var.manager_swarm_id
+      manager_swarm_id = var.manager_swarm_id,
+      manager_ip = var.manager_ip
   })
 }

@@ -22,6 +22,14 @@ if ! command -v docker &> /dev/null; then
     # Verify Docker installation
     docker --version >> "$LOG_FILE"
 
+    # Check if docker group exists before creating it
+    if ! getent group docker &> /dev/null; then
+        groupadd docker
+    fi
+
+    # Add ec2-user to the docker group
+    usermod -aG docker ec2-user
+
     # Initialize Docker Swarm with the local private IP address
     private_ip=$(get_private_ip)
     echo "$(date +"%Y-%m-%d %T") - Initializing Docker Swarm with private IP: $private_ip" >> "$LOG_FILE"

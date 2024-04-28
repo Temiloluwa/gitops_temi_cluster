@@ -25,6 +25,10 @@ variable "volume_type" {
   description = "The type of the ebs volume"
 }
 
+variable "security_group_id" {
+  type      = string
+  description = "ID of security group"
+}
 
 variable "configuration_script_path" {
   type      = string
@@ -33,7 +37,13 @@ variable "configuration_script_path" {
 
 variable "manager_swarm_id" {
   type      = string
-  description = "Configuration script path"
+  description = "swarm manager token id"
+  default = ""
+}
+
+variable "manager_ip" {
+  type      = string
+  description = "swarm manager ip address"
   default = ""
 }
 
@@ -42,3 +52,18 @@ variable "use_aws_ami" {
   default = true
   description = "Flag to Use AWS AMI" 
 }
+
+
+variable "enable_stop_protection" {
+  type    = bool
+  default = true
+  description = "Enable Stop Protection" 
+}
+
+
+variable "enable_termination_protection" {
+  type    = bool
+  default = true
+  description = "Enable Termination Protection" 
+}
+
