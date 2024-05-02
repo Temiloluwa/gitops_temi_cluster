@@ -25,6 +25,16 @@ variable "volume_type" {
   description = "The type of the ebs volume"
 }
 
+variable "vpc_id" {
+  type      = string
+  description = "ID of VPC"
+}
+
+variable "subnet_id" {
+  type      = string
+  description = "ID of Subnet"
+}
+
 variable "security_group_id" {
   type      = string
   description = "ID of security group"

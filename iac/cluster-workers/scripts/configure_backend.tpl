@@ -23,5 +23,5 @@ if ! command -v docker &> /dev/null; then
 
     # Join Docker swarm
     echo "$(date +"%Y-%m-%d %T") - Joining Docker swarm..." >> "$LOG_FILE"
-    docker swarm join --token $manager_swarm_id $manager_ip >> "$LOG_FILE" 2>&1
+    docker swarm join --token ${manager_swarm_id} ${manager_ip} >> "$LOG_FILE" 2>&1
 fi

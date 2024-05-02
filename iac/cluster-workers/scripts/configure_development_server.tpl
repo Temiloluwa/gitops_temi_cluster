@@ -22,7 +22,7 @@ if ! command -v docker &> /dev/null; then
     apt-get update
 
     # Install Docker components
-    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin >> "$LOG_FILE"
 
     # Check if docker group exists before creating it
     if ! getent group docker &> /dev/null; then
@@ -34,6 +34,6 @@ if ! command -v docker &> /dev/null; then
 
     # Join Docker swarm
     echo "$(date +"%Y-%m-%d %T") - Joining Docker swarm..." >> "$LOG_FILE"
-    docker swarm join --token $manager_swarm_id $manager_ip >> "$LOG_FILE" 2>&1
+    docker swarm join --token ${manager_swarm_id} ${manager_ip} >> "$LOG_FILE" 2>&1
 fi
 

@@ -3,7 +3,7 @@ terraform {
     organization = "hifeyinc"
 
     workspaces {
-      name = "temi-gitops-cluster"
+      name = "hyc-cluster-manager"
     }
   }
 }

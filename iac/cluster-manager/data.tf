@@ -11,7 +11,3 @@ data "aws_subnets" "default" {
     values = [data.aws_vpc.default.id]
   }
 }
-
-data "aws_security_group" "hyc-cluster-sg-tf" {
-  id = var.hyc-cluster-sg-tf-security_group_id
-}

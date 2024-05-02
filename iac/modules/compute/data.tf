@@ -1,17 +1,3 @@
-data "aws_vpc" "default" {
-  filter {
-    name   = "isDefault"
-    values = ["true"]
-  }
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-}
-
 # you can get ami info under ec2/images/ami on the amazon web console
 data "aws_ami" "amazon_linux" {
   most_recent = true
