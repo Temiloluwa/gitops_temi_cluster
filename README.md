@@ -1,16 +1,21 @@
 # GitOps Temi's Cluster
 
-This GitOps Repo facilitates the continuous deployment of my AI and ML apps.
-
+This GitOps Repo facilitates the continuous deployment of my AI and ML apps. <br>
+The cluster is deployed using Terraform configurations in the `IAC` folder. <br>
+Deployed applications are found in the `Manifests` folder
 
 ## Cluster Setup
 
-The development cluster is a swarm cluster hosted on AWS
 
-- **Number of Nodes**: 2
-- **Instances**: EC2 Gravition instances (g instances)
+- **Number of Manager Nodes**: 1
+- **Number of Worker Nodes**: 3
 - **Cloud Platform**: AWS
 - **Cluster**: [https://cluster.hifeyinc.com](https://cluster.hifeyinc.com)
+
+### Cluster Workers
+1. Business Node - Containers container business logic are hosted here
+2. Airflow Node - Dedicated node to deploy airflow
+3. Development Node - Dedicated node for development in the cloud using code-server
 
 ## Demo Apps
 
@@ -30,7 +35,7 @@ Some Demo apps are present in this repo to experiment with some functionalities
 | 4  | ![](./assets/imgs/npm.jpg) Ngnix Proxy Manager  | Reverse Proxy   |
 | 5  | ![](./assets/imgs/streamlit.jpg) Streamlit  | Frontend  |
 | 6  | ![](./assets/imgs/fastapi.jpeg) FastAPI  | Api   |
-| 7  | Nameko  |  RPC Microservices Framework   |
+| 7  | Airflow  | Pipeline Orchestrator   |
 | 8  |  NextJS  | Frontend   |
 | 9  |  RabbitMQ  | AMQP Broker   |
 

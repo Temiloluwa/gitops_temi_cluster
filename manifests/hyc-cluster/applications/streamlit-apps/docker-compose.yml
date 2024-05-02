@@ -13,8 +13,8 @@ services:
     ports:
       - "8501:8501"
     networks:
-      - backend_privateoverlay
+      - business_privateoverlay
 
 networks:
-  backend_privateoverlay:
+  business_privateoverlay:
     external: true

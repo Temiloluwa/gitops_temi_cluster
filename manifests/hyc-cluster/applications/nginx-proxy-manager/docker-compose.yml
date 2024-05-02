@@ -18,10 +18,10 @@ services:
       - letsencrypt:/etc/letsencrypt
     
     networks:
-      - backend_privateoverlay
+      - business_privateoverlay
       
 networks:
-  backend_privateoverlay:
+  business_privateoverlay:
     external: true
 
 volumes:

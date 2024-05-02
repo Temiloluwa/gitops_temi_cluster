@@ -6,12 +6,11 @@ default:
 variables:
   DESTROY: "false"
   DEPLOY: "false"
-  DEPLOY_BRANCH: "staging"
+  DEPLOY_BRANCH: "main"
 
 cache:
   paths:
-    - .terraform/terraform.tfstate
-    - .terraform.lock.hcl
+    - .terraform/
 
 
 before_script:
@@ -23,32 +22,52 @@ before_script:
   - terraform --version
   - terraform init
 
-
 stages:
-  - plan
-  - apply
-  - destroy
+  - deploy-manager
+  - deploy-workers
 
-
-plan-job:
-  stage: plan
+manager-plan-job:
+  when: manual
+  stage: deploy-manager
   script:
-    - terraform plan -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path"
+    - cd iac/cluster-manager
+    - terraform plan
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
 
-apply-job:
-  stage: apply
+manager-apply-job:
+  when: manual
+  stage: deploy-manager
   script:
-    - terraform apply -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path" -auto-approve
+    - cd iac/cluster-manager
+    - terraform apply -auto-approve
+  rules:
+    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
+
+workers-plan-job:
+  when: manual
+  stage: deploy-workers
+  script:
+    - cd iac/cluster-workers
+    - terraform plan
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
 
-destroy-job:
-  stage: destroy
+workers-apply-job:
+  when: manual
+  stage: deploy-workers
   script:
-    - terraform destroy -var="key_pair_name=$key_pair_name" -var="key_pair_file_path=$key_pair_file_path" -auto-approve
+    - cd iac/cluster-workers
+    - terraform apply -auto-approve
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
+    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
+
+
+# destroy-job:
+#   stage: destroy
+#   script:
+#     - terraform destroy -auto-approve
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
