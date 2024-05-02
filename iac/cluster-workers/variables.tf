@@ -1,11 +1,11 @@
-variable "backend_instance_type" {
+variable "business_instance_type" {
   type        = string
-  description = "Instance type for the backend EC2"
+  description = "Instance type for the business EC2"
 }
 
-variable "backend_volume_size" {
+variable "business_volume_size" {
   type        = number
-  description = "Backend EBS volume size"
+  description = "business EBS volume size"
 }
 
 variable "airflow_instance_type" {

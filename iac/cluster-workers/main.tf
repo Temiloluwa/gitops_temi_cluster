@@ -1,13 +1,13 @@
-module "backend-node" {
+module "business-node" {
   source                        = "../modules/compute"
-  name                          = "backend-node"
-  instance_type                 = var.backend_instance_type
-  volume_size                   = var.backend_volume_size
+  name                          = "business-node"
+  instance_type                 = var.business_instance_type
+  volume_size                   = var.business_volume_size
   volume_type                   = "gp3"
   vpc_id                        = data.aws_vpc.default.id
   subnet_id                     = local.subnet_id
   security_group_id             = data.aws_security_group.hyc-cluster-sg-tf.id
-  configuration_script_path     = "scripts/configure_backend.tpl"
+  configuration_script_path     = "scripts/configure_business.tpl"
   manager_swarm_id              = var.manager_swarm_id
   manager_ip                    = var.manager_ip
   use_aws_ami                   = true
