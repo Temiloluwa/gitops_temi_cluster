@@ -27,7 +27,6 @@ stages:
   - deploy-workers
 
 manager-plan-job:
-  when: manual
   stage: deploy-manager
   script:
     - cd iac/cluster-manager
@@ -37,7 +36,6 @@ manager-plan-job:
 
 
 manager-apply-job:
-  when: manual
   stage: deploy-manager
   script:
     - cd iac/cluster-manager
@@ -46,7 +44,6 @@ manager-apply-job:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
 
 workers-plan-job:
-  when: manual
   stage: deploy-workers
   script:
     - cd iac/cluster-workers
@@ -56,7 +53,6 @@ workers-plan-job:
 
 
 workers-apply-job:
-  when: manual
   stage: deploy-workers
   script:
     - cd iac/cluster-workers
