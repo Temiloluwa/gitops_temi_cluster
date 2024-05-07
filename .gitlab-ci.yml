@@ -47,7 +47,7 @@ manager-apply-job:
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
   needs:
-    - manager-plan-job
+    - job: manager-plan-job
       artifacts: true
 
 workers-plan-job:
@@ -68,11 +68,12 @@ workers-apply-job:
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
   needs:
-    - workers-plan-job
+    - job: workers-plan-job
       artifacts: true
 
 
 destroy-job:
+  when: manual
   stage: destroy
   script:
     - cd iac/cluster-manager
