@@ -11,7 +11,7 @@
 #   manager_swarm_id              = var.manager_swarm_id
 #   manager_ip                    = var.manager_ip
 #   use_aws_ami                   = true
-#   enable_termination_protection = false
+#   enable_termination_protection = true
 #   enable_stop_protection        = false
 # }
 
@@ -29,7 +29,7 @@
 #   manager_swarm_id              = var.manager_swarm_id
 #   manager_ip                    = var.manager_ip
 #   use_aws_ami                   = false
-#   enable_termination_protection = false
+#   enable_termination_protection = true
 #   enable_stop_protection        = false
 # }
 
@@ -47,6 +47,6 @@ module "development-server-node" {
   manager_swarm_id              = var.manager_swarm_id
   manager_ip                    = var.manager_ip
   use_aws_ami                   = false
-  enable_termination_protection = false
+  enable_termination_protection = true
   enable_stop_protection        = false
 }
