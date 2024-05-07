@@ -21,8 +21,6 @@ before_script:
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   - yum -y install terraform
   - aws --version
-  - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
-
 
 stages:
   - deploy-manager
@@ -34,8 +32,8 @@ manager-plan-job:
   stage: deploy-manager
   script:
     - terraform --version
-    - terraform init
     - cd iac/cluster-manager
+    - terraform init
     - terraform plan
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
@@ -56,8 +54,8 @@ workers-plan-job:
   stage: deploy-workers
   script:
     - terraform --version
-    - terraform init
     - cd $CI_PROJECT_DIR/iac/cluster-workers
+    - terraform init
     - terraform plan
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
@@ -79,6 +77,7 @@ destroy-manager-job:
   stage: destroy
   script:
     - cd iac/cluster-manager
+    - terraform init
     - terraform destroy -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
