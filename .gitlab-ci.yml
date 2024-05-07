@@ -21,6 +21,7 @@ before_script:
   - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
   - yum -y install terraform
   - aws --version
+  - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
 
 
 stages:
