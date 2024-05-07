@@ -28,6 +28,7 @@ before_script:
 stages:
   - deploy-manager
   - deploy-workers
+  - destroy
 
 manager-plan-job:
   when: manual
@@ -72,12 +73,19 @@ workers-apply-job:
       artifacts: true
 
 
-destroy-job:
+destroy-manager-job:
   when: manual
   stage: destroy
   script:
     - cd iac/cluster-manager
     - terraform destroy -auto-approve
+  rules:
+    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
+
+destroy-workers-job:
+  when: manual
+  stage: destroy
+  script:
     - cd iac/cluster-workers
     - terraform destroy -auto-approve
   rules:
