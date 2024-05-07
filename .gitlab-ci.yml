@@ -31,6 +31,7 @@ manager-plan-job:
   when: manual
   stage: deploy-manager
   script:
+    - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
     - terraform --version
     - cd iac/cluster-manager
     - terraform init
@@ -42,6 +43,7 @@ manager-plan-job:
 manager-apply-job:
   stage: deploy-manager
   script:
+    - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
     - terraform apply -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
@@ -53,6 +55,7 @@ workers-plan-job:
   when: manual
   stage: deploy-workers
   script:
+    - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
     - terraform --version
     - cd $CI_PROJECT_DIR/iac/cluster-workers
     - terraform init
@@ -64,6 +67,7 @@ workers-plan-job:
 workers-apply-job:
   stage: deploy-workers
   script:
+    - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
     - terraform apply -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
@@ -76,6 +80,7 @@ destroy-manager-job:
   when: manual
   stage: destroy
   script:
+    - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
     - cd iac/cluster-manager
     - terraform init
     - terraform destroy -auto-approve
@@ -86,6 +91,7 @@ destroy-workers-job:
   when: manual
   stage: destroy
   script:
+    - export TF_TOKEN_app_terraform_io=$TF_TOKEN_app_terraform_io
     - cd $CI_PROJECT_DIR/iac/cluster-workers
     - terraform destroy -auto-approve
   rules:
