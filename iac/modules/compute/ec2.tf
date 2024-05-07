@@ -15,7 +15,7 @@ resource "aws_instance" "hyc-compute" {
   disable_api_termination = var.enable_termination_protection  
 
   ebs_block_device {
-    device_name = "/dev/xvda" 
+    device_name = var.use_aws_ami ? "/dev/xvda" : "/dev/sdc"
     volume_size = var.volume_size
     volume_type = var.volume_type
     delete_on_termination = true
