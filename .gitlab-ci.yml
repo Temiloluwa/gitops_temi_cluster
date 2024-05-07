@@ -5,7 +5,7 @@ default:
 
 variables:
   DESTROY: "false"
-  DEPLOY: "false"
+  DEPLOY: "true"
   DEPLOY_BRANCH: "feature/resetup-cluster"
 
 cache:
