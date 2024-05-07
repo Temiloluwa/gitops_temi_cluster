@@ -58,6 +58,17 @@ resource "aws_vpc_security_group_ingress_rule" "portainer-https" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "cluster-swarm" {
+  security_group_id = aws_security_group.hyc-cluster-sg-tf.id
+  cidr_ipv4         = "172.31.0.0/16"
+  from_port         = 2377
+  ip_protocol       = "tcp"
+  to_port           = 2377
+  tags = {
+    Name = "cluster-swarm"
+  }
+}
+
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
