@@ -39,7 +39,7 @@ module "development-server-node" {
   name                          = "development-server-node"
   instance_type                 = var.development_server_instance_type
   volume_size                   = var.development_server_volume_size
-  volume_type                   = "gp3"
+  volume_type                   = "gp2"
   vpc_id                        = data.aws_vpc.default.id
   subnet_id                     = local.subnet_id
   security_group_id             = aws_security_group.hyc-dev-server-sg-tf.id

@@ -36,16 +36,17 @@ resource "aws_vpc_security_group_ingress_rule" "https" {
 }
 
 
-resource "aws_vpc_security_group_ingress_rule" "cluster-ingress" {
+resource "aws_vpc_security_group_ingress_rule" "ssh" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 81
+  cidr_ipv4         = "18.206.107.24/29"
+  from_port         = 22
   ip_protocol       = "tcp"
-  to_port           = 81
+  to_port           = 22
   tags = {
-    Name = "cluster-ingress"
+    Name = "ssh-instance-connect"
   }
 }
+
 
 resource "aws_vpc_security_group_ingress_rule" "cluster-swarm" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
