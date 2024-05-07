@@ -6,11 +6,14 @@ default:
 variables:
   DESTROY: "false"
   DEPLOY: "false"
-  DEPLOY_BRANCH: "main"
+  DEPLOY_BRANCH: "feature/resetup-cluster"
 
 cache:
   paths:
-    - .terraform/
+    - iac/cluster-manager/.terraform/
+    - iac/cluster-manager/.terraform.lock.hcl
+    - iac/cluster-workers/.terraform/
+    - iac/cluster-workers/.terraform.lock.hcl
 
 
 before_script:
@@ -27,6 +30,7 @@ stages:
   - deploy-workers
 
 manager-plan-job:
+  when: manual
   stage: deploy-manager
   script:
     - cd iac/cluster-manager
@@ -42,8 +46,12 @@ manager-apply-job:
     - terraform apply -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
+  needs:
+    - manager-plan-job
+      artifacts: true
 
 workers-plan-job:
+  when: manual
   stage: deploy-workers
   script:
     - cd iac/cluster-workers
@@ -59,11 +67,17 @@ workers-apply-job:
     - terraform apply -auto-approve
   rules:
     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
+  needs:
+    - workers-plan-job
+      artifacts: true
 
 
-# destroy-job:
-#   stage: destroy
-#   script:
-#     - terraform destroy -auto-approve
-#   rules:
-#     - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
+destroy-job:
+  stage: destroy
+  script:
+    - cd iac/cluster-manager
+    - terraform destroy -auto-approve
+    - cd iac/cluster-workers
+    - terraform destroy -auto-approve
+  rules:
+    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
