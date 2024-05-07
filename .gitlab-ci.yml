@@ -7,7 +7,6 @@ variables:
   DESTROY: "false"
   DEPLOY: "true"
   DEPLOY_BRANCH: "feature/resetup-cluster"
-  TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
 
 cache:
   paths:
@@ -28,6 +27,8 @@ stages:
   - destroy
 
 manager-plan-job:
+  variables:
+    TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
   when: manual
   stage: deploy-manager
   script:
@@ -39,6 +40,8 @@ manager-plan-job:
     - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"'
 
 manager-apply-job:
+  variables:
+    TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
   stage: deploy-manager
   script:
     - terraform apply -auto-approve
@@ -49,6 +52,8 @@ manager-apply-job:
       artifacts: true
 
 workers-plan-job:
+  variables:
+    TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
   when: manual
   stage: deploy-workers
   script:
@@ -60,6 +65,8 @@ workers-plan-job:
     - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"'
 
 workers-apply-job:
+  variables:
+    TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
   stage: deploy-workers
   script:
     - terraform apply -auto-approve
@@ -70,6 +77,8 @@ workers-apply-job:
       artifacts: true
 
 destroy-manager-job:
+  variables:
+    TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
   when: manual
   stage: destroy
   script:
@@ -80,6 +89,8 @@ destroy-manager-job:
     - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"'
 
 destroy-workers-job:
+  variables:
+    TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
   when: manual
   stage: destroy
   script:
