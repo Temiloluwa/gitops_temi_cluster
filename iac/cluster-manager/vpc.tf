@@ -36,25 +36,14 @@ resource "aws_vpc_security_group_ingress_rule" "https" {
 }
 
 
-resource "aws_vpc_security_group_ingress_rule" "ssh" {
+resource "aws_vpc_security_group_ingress_rule" "cluster-ingress" {
   security_group_id = aws_security_group.hyc-cluster-sg-tf.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 22
+  from_port         = 81
   ip_protocol       = "tcp"
-  to_port           = 22
+  to_port           = 81
   tags = {
-    Name = "ssh"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "portainer-https" {
-  security_group_id = aws_security_group.hyc-cluster-sg-tf.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 9443
-  ip_protocol       = "tcp"
-  to_port           = 9443
-  tags = {
-    Name = "portainer https"
+    Name = "cluster-ingress"
   }
 }
 
