@@ -7,7 +7,7 @@ variables:
   DESTROY: "false"
   DEPLOY: "true"
   DEPLOY_BRANCH: "feature/resetup-cluster"
-  TF_TOKEN_app_terraform_io: $TF_TOKEN_app_terraform_io
+  TF_TOKEN_app_terraform_io: "$TF_TOKEN_app_terraform_io"
 
 cache:
   paths:
@@ -15,7 +15,6 @@ cache:
     - iac/cluster-manager/.terraform.lock.hcl
     - iac/cluster-workers/.terraform/
     - iac/cluster-workers/.terraform.lock.hcl
-
 
 before_script:
   - yum install -y yum-utils
@@ -37,15 +36,14 @@ manager-plan-job:
     - terraform init
     - terraform plan
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
-
+    - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"'
 
 manager-apply-job:
   stage: deploy-manager
   script:
     - terraform apply -auto-approve
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
+    - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"'
   needs:
     - job: manager-plan-job
       artifacts: true
@@ -55,40 +53,37 @@ workers-plan-job:
   stage: deploy-workers
   script:
     - terraform --version
-    - cd $CI_PROJECT_DIR/iac/cluster-workers
+    - cd iac/cluster-workers
     - terraform init
     - terraform plan
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
-
+    - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"'
 
 workers-apply-job:
   stage: deploy-workers
   script:
     - terraform apply -auto-approve
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"
+    - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DEPLOY == "true"'
   needs:
     - job: workers-plan-job
       artifacts: true
-
 
 destroy-manager-job:
   when: manual
   stage: destroy
   script:
-    - export 
     - cd iac/cluster-manager
     - terraform init
     - terraform destroy -auto-approve
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
+    - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"'
 
 destroy-workers-job:
   when: manual
   stage: destroy
   script:
-    - cd $CI_PROJECT_DIR/iac/cluster-workers
+    - cd iac/cluster-workers
     - terraform destroy -auto-approve
   rules:
-    - if: $CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"
+    - if: '$CI_COMMIT_BRANCH == $DEPLOY_BRANCH && $DESTROY == "true"'
