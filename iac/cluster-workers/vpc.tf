@@ -13,14 +13,36 @@ resource "aws_security_group" "hyc-dev-server-sg-tf" {
 }
 
 
-resource "aws_vpc_security_group_ingress_rule" "tcp" {
+resource "aws_vpc_security_group_ingress_rule" "https" {
   security_group_id = aws_security_group.hyc-dev-server-sg-tf.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 1
+  from_port         = 443
   ip_protocol       = "tcp"
-  to_port           = 10000
+  to_port           = 443
+  tags = {
+    Name = "https"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http" {
+  security_group_id = aws_security_group.hyc-dev-server-sg-tf.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
   tags = {
     Name = "http"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ssh" {
+  security_group_id = aws_security_group.hyc-dev-server-sg-tf.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+  tags = {
+    Name = "ssh"
   }
 }
 
