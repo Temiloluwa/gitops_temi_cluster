@@ -13,7 +13,10 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
       - DEFAULT_WORKSPACE=/config/codes-and-scripts
-      
+    
+    volumes:
+      - config_volume:/config
+
     ports:
       - 8443:8443
     restart: unless-stopped
@@ -23,3 +26,6 @@ services:
 networks:
   portainer_agent_network:
     external: true
+
+volumes:
+  config_volume:
