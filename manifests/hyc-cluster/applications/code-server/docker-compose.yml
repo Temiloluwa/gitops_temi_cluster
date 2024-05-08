@@ -13,9 +13,6 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
       - DEFAULT_WORKSPACE=/config/codes-and-scripts
-
-    volumes:
-      - /path/to/appdata/config:/config
       
     ports:
       - 8443:8443
