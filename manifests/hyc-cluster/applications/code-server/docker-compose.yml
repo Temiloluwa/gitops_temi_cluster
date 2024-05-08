@@ -3,7 +3,6 @@ version: '3.8'
 services:
   code-server:
     image: lscr.io/linuxserver/code-server:latest
-    container_name: code-server
     deploy:
       replicas: 1
       placement:
@@ -13,8 +12,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - PASSWORD_FILE=/run/secrets/cs_password
+      - PASSWORD=/run/secrets/cs_password
       - DEFAULT_WORKSPACE=/config/codes-and-scripts
+
     volumes:
       - /path/to/appdata/config:/config
     secrets:
