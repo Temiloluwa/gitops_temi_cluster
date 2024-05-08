@@ -12,10 +12,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - DEFAULT_WORKSPACE=/david/workspace/codes-and-scripts
     
     volumes:
-      - david_vol:/david
+      - /home/ubuntu:/config
 
     ports:
       - 8443:8443
@@ -26,6 +25,4 @@ services:
 networks:
   portainer_agent_network:
     external: true
-
-volumes:
-  david_vol:
+    
