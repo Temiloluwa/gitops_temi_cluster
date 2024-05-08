@@ -15,7 +15,7 @@ services:
       - DEFAULT_WORKSPACE=/usr/david/codes-and-scripts
     
     volumes:
-      - ~/.config:/config/.config
+      - ~/.config/code-server/config.yaml:/config/.config/code-server/config.yaml
 
     ports:
       - 8443:8443
