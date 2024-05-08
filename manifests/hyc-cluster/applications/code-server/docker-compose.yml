@@ -12,7 +12,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - PASSWORD=/run/secrets/cs_password
       - DEFAULT_WORKSPACE=/config/codes-and-scripts
 
     volumes:
@@ -24,10 +23,6 @@ services:
     restart: unless-stopped
     networks: 
       - portainer_agent_network
-
-secrets:
-  cs_password:
-    external: true
 
 networks:
   portainer_agent_network:
