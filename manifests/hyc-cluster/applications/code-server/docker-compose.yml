@@ -16,8 +16,7 @@ services:
 
     volumes:
       - /path/to/appdata/config:/config
-    secrets:
-      - cs_password
+      
     ports:
       - 8443:8443
     restart: unless-stopped
