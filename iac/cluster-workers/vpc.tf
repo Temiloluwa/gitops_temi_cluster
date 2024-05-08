@@ -46,6 +46,18 @@ resource "aws_vpc_security_group_ingress_rule" "dev-ports" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "codeserver" {
+  security_group_id = aws_security_group.hyc-dev-server-sg-tf.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 8443
+  ip_protocol       = "tcp"
+  to_port           = 8443
+  tags = {
+    Name = "codeserver"
+  }
+}
+
+
 resource "aws_vpc_security_group_ingress_rule" "ssh" {
   security_group_id = aws_security_group.hyc-dev-server-sg-tf.id
   cidr_ipv4         = "0.0.0.0/0"
