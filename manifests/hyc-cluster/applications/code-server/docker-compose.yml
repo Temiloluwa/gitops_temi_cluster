@@ -12,10 +12,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - DEFAULT_WORKSPACE=/usr/david/codes-and-scripts
+      - DEFAULT_WORKSPACE=/config/codes-and-scripts
     
     volumes:
-      - ~/.config/code-server/config.yaml:/config/.config/code-server/config.yaml
+      - config_volume:/config
 
     ports:
       - 8443:8443
@@ -26,3 +26,6 @@ services:
 networks:
   portainer_agent_network:
     external: true
+
+volumes:
+  config_volume:
