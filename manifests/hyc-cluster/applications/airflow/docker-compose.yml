@@ -107,6 +107,9 @@ services:
       placement:
         constraints:
           - "node.id==e800avcav0bt2r1so5ugffzii"
+    networks: 
+      - portainer_agent_network
+
 
   redis:
     image: redis:latest
@@ -124,6 +127,9 @@ services:
       placement:
         constraints:
           - "node.id==e800avcav0bt2r1so5ugffzii"
+    networks: 
+      - portainer_agent_network
+
 
   airflow-webserver:
     <<: *airflow-common
@@ -141,6 +147,9 @@ services:
       - redis
       - postgres
       - airflow-init
+    networks: 
+      - portainer_agent_network
+
         
   airflow-scheduler:
     <<: *airflow-common
@@ -156,6 +165,9 @@ services:
       - redis
       - postgres
       - airflow-init
+    networks: 
+      - portainer_agent_network
+
 
   airflow-worker:
     <<: *airflow-common
@@ -179,6 +191,9 @@ services:
       - redis
       - postgres
       - airflow-init
+    networks: 
+      - portainer_agent_network
+
 
   airflow-triggerer:
     <<: *airflow-common
@@ -193,6 +208,9 @@ services:
       - redis
       - postgres
       - airflow-init
+    networks: 
+      - portainer_agent_network
+
 
   airflow-init:
     <<: *airflow-common
@@ -257,6 +275,10 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
+    
+    networks: 
+      - portainer_agent_network
+
 
   airflow-cli:
     <<: *airflow-common
@@ -268,6 +290,10 @@ services:
       - bash
       - -c
       - airflow
+
+    networks: 
+      - portainer_agent_network
+
 
   # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
   # or by explicitly targeted on the command line e.g. docker-compose up flower.
@@ -289,5 +315,12 @@ services:
       - postgres
       - airflow-init
 
+    networks: 
+      - portainer_agent_network
+
 volumes:
   postgres-db-volume:
+
+networks:
+  portainer_agent_network:
+    external: true
