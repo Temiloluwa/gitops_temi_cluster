@@ -91,6 +91,7 @@ x-airflow-common:
       constraints:
         - "node.id==zqayi6kamw0qhjwcn3rg9z2m4"
 
+version: "3.8"
 services:
   postgres:
     image: postgres:13
