@@ -95,9 +95,9 @@ services:
   postgres:
     image: postgres:13
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: airflow
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_PASSWORD}
     deploy:
       replicas: 1 
       placement:
@@ -121,7 +121,7 @@ services:
       placement:
         constraints:
           - "node.id==zqayi6kamw0qhjwcn3rg9z2m4"
-          
+
     expose:
       - 6379
     healthcheck:

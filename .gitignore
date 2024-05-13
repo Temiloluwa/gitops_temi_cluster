@@ -1,3 +1,8 @@
 hifeyinc-cluster-key*
 *terraform
 deleteme.sh
+*.env
+manifests/hyc-cluster/applications/airflow/config
+manifests/hyc-cluster/applications/airflow/dags
+manifests/hyc-cluster/applications/airflow/logs
+manifests/hyc-cluster/applications/airflow/plugins
