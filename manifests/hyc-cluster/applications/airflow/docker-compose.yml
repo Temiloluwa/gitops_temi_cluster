@@ -1,3 +1,4 @@
+# source: https://airflow.apache.org/docs/apache-airflow/2.9.1/docker-compose.yaml
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -84,6 +85,11 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
+  deploy:
+    replicas: 1 
+    placement:
+      constraints:
+        - "node.id==zqayi6kamw0qhjwcn3rg9z2m4"
 
 services:
   postgres:
@@ -92,6 +98,11 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
+    deploy:
+      replicas: 1 
+      placement:
+        constraints:
+          - "node.id==zqayi6kamw0qhjwcn3rg9z2m4"
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
@@ -105,6 +116,12 @@ services:
     # Redis is limited to 7.2-bookworm due to licencing change
     # https://redis.io/blog/redis-adopts-dual-source-available-licensing/
     image: redis:7.2-bookworm
+    deploy:
+      replicas: 1 
+      placement:
+        constraints:
+          - "node.id==zqayi6kamw0qhjwcn3rg9z2m4"
+          
     expose:
       - 6379
     healthcheck:
